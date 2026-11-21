@@ -1,0 +1,2155 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>สำนักสักยันต์รัตนเกล้า | พุทธศิลป์และอักขระเลขยันต์โบราณ</title>
+  <meta name="description" content="สำนักสักยันต์รัตนเกล้า ชมผลงานอักขระเลขยันต์ ตารางงานสำนัก และระบบจองคิวออนไลน์" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Noto+Serif+Thai:wght@500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5 & Icons & SweetAlert2 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg-dark: #070709;
+      --bg-card: #111116;
+      --bg-card-hover: #181820;
+      --border-gold: rgba(212, 175, 55, 0.28);
+      --border-gold-strong: rgba(212, 175, 55, 0.65);
+      --gold-primary: #d4af37;
+      --gold-light: #f4d87c;
+      --gold-dark: #9c7a1c;
+      --text-main: #f3efe6;
+      --text-muted: #a69f91;
+      --grad-gold: linear-gradient(135deg, #f6e08e 0%, #d4af37 45%, #9d7719 100%);
+      --shadow-gold: 0 10px 30px rgba(212, 175, 55, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Prompt', sans-serif;
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(212, 175, 55, 0.08), transparent 35%),
+        radial-gradient(circle at 85% 30%, rgba(212, 175, 55, 0.06), transparent 40%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .font-sacred {
+      font-family: 'Noto Serif Thai', serif;
+    }
+
+    .font-en {
+      font-family: 'Cinzel', serif;
+      letter-spacing: 2px;
+    }
+
+    .text-gold { color: var(--gold-light) !important; }
+    .text-gold-solid { color: var(--gold-primary) !important; }
+    .text-muted-custom { color: var(--text-muted) !important; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #0c0c10; }
+    ::-webkit-scrollbar-thumb { background: #3b3116; border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--gold-primary); }
+
+    /* Navbar */
+    .navbar-custom {
+      background: rgba(7, 7, 9, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-gold);
+      padding: 0.75rem 0;
+    }
+    .brand-emblem {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--grad-gold);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #09090c;
+      font-size: 1.2rem;
+      box-shadow: 0 0 18px rgba(212, 175, 55, 0.45);
+      flex-shrink: 0;
+    }
+    .nav-link {
+      color: #ddd6c7 !important;
+      font-weight: 400;
+      transition: color 0.2s;
+      padding: 0.5rem 0.9rem !important;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: var(--gold-light) !important;
+    }
+
+    /* Buttons */
+    .btn-gold {
+      background: var(--grad-gold);
+      color: #0b0904;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      padding: 0.6rem 1.45rem;
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.28);
+      transition: all 0.25s ease;
+    }
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 26px rgba(212, 175, 55, 0.45);
+      color: #000;
+    }
+    .btn-outline-gold {
+      background: transparent;
+      color: var(--gold-light);
+      border: 1px solid var(--border-gold-strong);
+      border-radius: 50px;
+      padding: 0.6rem 1.4rem;
+      transition: all 0.25s ease;
+    }
+    .btn-outline-gold:hover {
+      background: rgba(212, 175, 55, 0.14);
+      border-color: var(--gold-light);
+      color: #fff;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      position: relative;
+      padding: 7.5rem 0 4.5rem;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border-gold);
+    }
+    .hero-ornament {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.16), transparent 60%);
+      pointer-events: none;
+    }
+    .announcement-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-light);
+      padding: 0.4rem 1.1rem;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-size: clamp(2.1rem, 5vw, 3.8rem);
+      font-weight: 700;
+      background: linear-gradient(180deg, #fff8dc 0%, #f1cf6f 55%, #b88b1e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.22;
+    }
+    .stat-box {
+      background: rgba(17, 17, 22, 0.82);
+      border: 1px solid var(--border-gold);
+      border-radius: 16px;
+      padding: 1.15rem;
+      text-align: center;
+      transition: transform 0.25s, border-color 0.25s;
+    }
+    .stat-box:hover {
+      transform: translateY(-3px);
+      border-color: var(--gold-primary);
+    }
+
+    /* Section Header */
+    .section-pad { padding: 4.5rem 0; }
+    .section-divider {
+      width: 90px;
+      height: 3px;
+      background: var(--grad-gold);
+      margin: 0.8rem auto 0;
+      border-radius: 99px;
+    }
+
+    /* Cards */
+    .sacred-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .sacred-card:hover {
+      border-color: var(--border-gold-strong);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-gold);
+    }
+
+    /* Portfolio */
+    .filter-btn {
+      background: #14141a;
+      color: var(--text-muted);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50px;
+      padding: 0.45rem 1.15rem;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--grad-gold);
+      color: #09090c;
+      border-color: transparent;
+      font-weight: 600;
+    }
+    .work-img-wrap {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: #0b0b0f;
+      cursor: pointer;
+    }
+    .work-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .sacred-card:hover .work-img-wrap img {
+      transform: scale(1.07);
+    }
+    .work-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(7, 7, 9, 0.82);
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-light);
+      font-size: 0.75rem;
+      padding: 0.28rem 0.75rem;
+      border-radius: 50px;
+    }
+
+    /* Calendar */
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+    .cal-head {
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--gold-light);
+      font-weight: 600;
+      padding: 0.45rem 0;
+    }
+    .cal-cell {
+      aspect-ratio: 1 / 1;
+      border-radius: 12px;
+      background: #15151c;
+      border: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s;
+      padding: 4px;
+    }
+    .cal-cell.empty {
+      background: transparent;
+      border-color: transparent;
+      cursor: default;
+    }
+    .cal-cell:not(.empty):hover {
+      border-color: var(--gold-primary);
+      background: #1e1c17;
+    }
+    .cal-cell.today {
+      border: 1.5px solid var(--gold-light);
+      box-shadow: inset 0 0 12px rgba(212, 175, 55, 0.25);
+    }
+    .cal-cell.selected {
+      background: rgba(212, 175, 55, 0.22);
+      border-color: var(--gold-light);
+    }
+    .cal-dots {
+      display: flex;
+      gap: 3px;
+      margin-top: 4px;
+    }
+    .cal-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    /* Status Colors */
+    .st-open { background: #19c37d; color: #052e1c; }
+    .st-full { background: #ef4444; color: #fff; }
+    .st-special { background: #f4d87c; color: #1b1300; }
+    .st-offsite { background: #38bdf8; color: #052236; }
+    .st-closed { background: #6b7280; color: #fff; }
+
+    .badge-status {
+      padding: 0.28rem 0.72rem;
+      border-radius: 50px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Schedule Timeline Item */
+    .schedule-item {
+      background: #14141a;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-left: 4px solid var(--gold-primary);
+      border-radius: 14px;
+      padding: 1rem 1.15rem;
+      transition: background 0.2s;
+    }
+    .schedule-item:hover { background: #1a1a22; }
+
+    /* Booking Frame Modal */
+    .booking-modal-dialog {
+      max-width: 1120px;
+      height: 92vh;
+      margin: 4vh auto;
+    }
+    .booking-modal-content {
+      height: 100%;
+      background: #0c0c10;
+      border: 1px solid var(--border-gold-strong);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+    .booking-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #111;
+    }
+
+    /* Modals & Forms */
+    .modal-content-dark {
+      background: #111116;
+      color: var(--text-main);
+      border: 1px solid var(--border-gold-strong);
+      border-radius: 18px;
+    }
+    .form-control-dark, .form-select-dark {
+      background-color: #0a0a0e;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: var(--text-main);
+      border-radius: 10px;
+    }
+    .form-control-dark:focus, .form-select-dark:focus {
+      background-color: #0e0e14;
+      border-color: var(--gold-light);
+      color: #fff;
+      box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.18);
+    }
+    .form-control-dark::placeholder { color: #6c675e; }
+
+    /* Admin Panel View */
+    #adminView {
+      display: none;
+      min-height: 100vh;
+      background: #08080b;
+    }
+    .admin-nav-pill {
+      border-radius: 12px;
+      color: var(--text-muted);
+      padding: 0.65rem 1.1rem;
+      border: 1px solid transparent;
+      background: transparent;
+      transition: all 0.2s;
+    }
+    .admin-nav-pill:hover {
+      color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.08);
+    }
+    .admin-nav-pill.active {
+      background: var(--grad-gold);
+      color: #09090c;
+      font-weight: 600;
+    }
+    .table-dark-custom {
+      --bs-table-bg: #111116;
+      --bs-table-striped-bg: #16161d;
+      --bs-table-color: #f3efe6;
+      --bs-table-border-color: rgba(212, 175, 55, 0.18);
+    }
+
+    /* Floating Quick Booking on Mobile */
+    .floating-book-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 20px;
+      z-index: 1030;
+      box-shadow: 0 8px 28px rgba(212, 175, 55, 0.5);
+    }
+
+    /* Loading Overlay */
+    #globalLoader {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 7, 9, 0.88);
+      backdrop-filter: blur(6px);
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s;
+    }
+    #globalLoader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    @media (max-width: 767px) {
+      .hero-section { padding: 6.2rem 0 3.2rem; }
+      .section-pad { padding: 3.2rem 0; }
+      .booking-modal-dialog { margin: 0; height: 100vh; max-width: 100%; }
+      .booking-modal-content { border-radius: 0; }
+      .cal-cell { font-size: 0.82rem; border-radius: 9px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Global Loader -->
+  <div id="globalLoader">
+    <div class="brand-emblem mb-3" style="width:64px;height:64px;font-size:1.7rem;">
+      <i class="fa-solid fa-dharmachakra fa-spin"></i>
+    </div>
+    <div class="text-gold font-sacred fs-5">สำนักสักยันต์รัตนเกล้า</div>
+    <small class="text-muted-custom mt-1">กำลังโหลดข้อมูลสำนัก...</small>
+  </div>
+
+  <!-- =========================================================
+       FRONTEND VIEW (หน้าบ้าน)
+       ========================================================= -->
+  <div id="publicView">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="#home">
+          <span class="brand-emblem"><i class="fa-solid fa-om"></i></span>
+          <div>
+            <div class="font-sacred fw-bold text-gold lh-1" id="navShrineName">สำนักสักยันต์รัตนเกล้า</div>
+            <small class="font-en text-muted-custom" style="font-size:0.65rem;">RATTANAKLAO SAK YANT</small>
+          </div>
+        </a>
+        <button class="navbar-toggler border-warning" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1 mt-3 mt-lg-0">
+            <li class="nav-item"><a class="nav-link" href="#home">หน้าแรก</a></li>
+            <li class="nav-item"><a class="nav-link" href="#portfolio">ผลงานสำนัก</a></li>
+            <li class="nav-item"><a class="nav-link" href="#schedule">ตารางงาน</a></li>
+            <li class="nav-item"><a class="nav-link" href="#rules">ข้อปฏิบัติ & ติดต่อ</a></li>
+            <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+              <button class="btn btn-gold btn-sm px-3 py-2 w-100" onclick="openBookingModal()">
+                <i class="fa-solid fa-calendar-check me-1"></i> จองคิวสักยันต์
+              </button>
+            </li>
+            <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+              <button class="btn btn-outline-gold btn-sm px-3 py-2 w-100" onclick="openAdminLogin()" title="เข้าสู่ระบบหลังบ้าน">
+                <i class="fa-solid fa-user-shield me-1"></i> หลังบ้าน
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+      <div class="hero-ornament"></div>
+      <div class="container position-relative text-center">
+        <div class="announcement-pill" id="heroAnnouncementWrap">
+          <i class="fa-solid fa-bullhorn"></i>
+          <span id="heroAnnouncement">เปิดรับศิษย์ลงอักขระเลขยันต์ เสริมสิริมงคล จองคิวล่วงหน้าผ่านระบบออนไลน์</span>
+        </div>
+
+        <h1 class="hero-title mb-3" id="heroTitle">สำนักสักยันต์รัตนเกล้า</h1>
+        <p class="text-muted-custom mx-auto mb-4" style="max-width: 680px; font-size: 1.05rem;" id="heroSubtitle">
+          สืบสานพุทธศิลป์และอักขระเลขยันต์โบราณ ด้วยความประณีต เข้มขลัง และสะอาดปลอดภัย ตรวจสอบผลงาน ตารางงาน และจองคิวล่วงหน้าได้ตลอด 24 ชั่วโมง
+        </p>
+
+        <div class="d-flex flex-wrap justify-content-center gap-3 mb-5">
+          <button class="btn btn-gold px-4 py-2 fs-6" onclick="openBookingModal()">
+            <i class="fa-solid fa-calendar-plus me-2"></i> จองคิวสักยันต์ออนไลน์
+          </button>
+          <a href="#portfolio" class="btn btn-outline-gold px-4 py-2 fs-6">
+            <i class="fa-solid fa-images me-2"></i> ชมผลงานของสำนัก
+          </a>
+          <a href="#schedule" class="btn btn-outline-gold px-4 py-2 fs-6">
+            <i class="fa-solid fa-calendar-days me-2"></i> ดูตารางงาน
+          </a>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="row g-3 justify-content-center" style="max-width: 860px; margin: 0 auto;">
+          <div class="col-6 col-md-4">
+            <div class="stat-box">
+              <div class="text-gold fs-3 fw-bold" id="statWorks">0</div>
+              <div class="small text-muted-custom">ผลงานในคลังสำนัก</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4">
+            <div class="stat-box">
+              <div class="text-gold fs-3 fw-bold" id="statOpenDays">0</div>
+              <div class="small text-muted-custom">วันเปิดรับศิษย์เร็วๆ นี้</div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="stat-box">
+              <div class="fs-5 fw-bold mt-1" id="statTodayStatus">ตรวจสอบตาราง</div>
+              <div class="small text-muted-custom mt-1">สถานะสำนักวันนี้</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section-pad">
+      <div class="container">
+        <div class="text-center mb-4">
+          <span class="font-en text-gold small">SACRED GALLERY</span>
+          <h2 class="text-gold fw-bold mt-1">ผลงานของสำนัก</h2>
+          <p class="text-muted-custom mb-0">รวมภาพผลงานอักขระเลขยันต์ สักน้ำมัน พุทธศิลป์ และพิธีกรรมของสำนักสักยันต์รัตนเกล้า</p>
+          <div class="section-divider"></div>
+        </div>
+
+        <!-- Filters & Search -->
+        <div class="row g-3 align-items-center mb-4">
+          <div class="col-lg-8">
+            <div class="d-flex flex-wrap gap-2" id="categoryFilters">
+              <button class="filter-btn active" data-cat="ทั้งหมด">ทั้งหมด</button>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="input-group">
+              <span class="input-group-text bg-dark border-warning border-opacity-25 text-gold">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </span>
+              <input type="text" id="workSearchInput" class="form-control form-control-dark" placeholder="ค้นหาชื่อยันต์ หรือพุทธคุณ..." oninput="renderPortfolio()" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Portfolio Grid -->
+        <div class="row g-4" id="portfolioGrid"></div>
+      </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule" class="section-pad" style="background: rgba(17,17,22,0.55); border-top: 1px solid var(--border-gold); border-bottom: 1px solid var(--border-gold);">
+      <div class="container">
+        <div class="text-center mb-4">
+          <span class="font-en text-gold small">SHRINE CALENDAR</span>
+          <h2 class="text-gold fw-bold mt-1">ตารางงานของสำนัก</h2>
+          <p class="text-muted-custom mb-0">ตรวจสอบวันเปิดรับศิษย์ พิธีไหว้ครู งานนอกสถานที่ และกดจองคิวได้ทันที</p>
+          <div class="section-divider"></div>
+        </div>
+
+        <!-- Legend -->
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+          <span class="badge-status st-open"><i class="fa-solid fa-circle-check"></i> เปิดรับศิษย์</span>
+          <span class="badge-status st-special"><i class="fa-solid fa-star"></i> พิธีพิเศษ/ไหว้ครู</span>
+          <span class="badge-status st-offsite"><i class="fa-solid fa-location-dot"></i> ออกงานนอกสถานที่</span>
+          <span class="badge-status st-full"><i class="fa-solid fa-ban"></i> คิวเต็ม</span>
+          <span class="badge-status st-closed"><i class="fa-solid fa-moon"></i> ปิดสำนัก</span>
+        </div>
+
+        <div class="row g-4">
+          <!-- Calendar Card -->
+          <div class="col-lg-6">
+            <div class="sacred-card p-3 p-md-4 h-100">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <button class="btn btn-outline-gold btn-sm rounded-circle" style="width:36px;height:36px;padding:0;" onclick="changeMonth(-1)">
+                  <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <h5 class="mb-0 text-gold fw-bold" id="calMonthTitle">เดือน</h5>
+                <button class="btn btn-outline-gold btn-sm rounded-circle" style="width:36px;height:36px;padding:0;" onclick="changeMonth(1)">
+                  <i class="fa-solid fa-chevron-right"></i>
+                </button>
+              </div>
+              <div class="cal-grid mb-1">
+                <div class="cal-head">อา</div>
+                <div class="cal-head">จ</div>
+                <div class="cal-head">อ</div>
+                <div class="cal-head">พ</div>
+                <div class="cal-head">พฤ</div>
+                <div class="cal-head">ศ</div>
+                <div class="cal-head">ส</div>
+              </div>
+              <div class="cal-grid" id="calendarDays"></div>
+
+              <!-- Selected Day Box -->
+              <div class="mt-3 pt-3 border-top border-warning border-opacity-25" id="selectedDayDetail">
+                <small class="text-muted-custom"><i class="fa-regular fa-hand-pointer me-1 text-gold"></i> กดที่วันที่ในปฏิทินเพื่อดูรายละเอียดตารางงาน</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Upcoming Schedule List -->
+          <div class="col-lg-6">
+            <div class="sacred-card p-3 p-md-4 h-100 d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0 text-gold fw-bold"><i class="fa-solid fa-list-ul me-2"></i>กำหนดการที่กำลังจะมาถึง</h5>
+                <button class="btn btn-gold btn-sm" onclick="openBookingModal()">
+                  <i class="fa-solid fa-calendar-check me-1"></i> จองคิวเลย
+                </button>
+              </div>
+              <div id="upcomingScheduleList" class="d-flex flex-column gap-3 flex-grow-1 overflow-auto" style="max-height: 460px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Booking Integration CTA Banner -->
+    <section class="section-pad">
+      <div class="container">
+        <div class="sacred-card p-4 p-md-5 text-center position-relative" style="background: linear-gradient(135deg, #16130b 0%, #0d0d12 60%, #191408 100%); border-color: var(--gold-primary);">
+          <div class="brand-emblem mx-auto mb-3" style="width:58px;height:58px;font-size:1.5rem;">
+            <i class="fa-solid fa-calendar-check"></i>
+          </div>
+          <h2 class="text-gold fw-bold mb-2">ระบบจองคิวสักยันต์ออนไลน์</h2>
+          <p class="text-muted-custom mx-auto mb-4" style="max-width: 620px;">
+            เชื่อมโยงตรงกับระบบลงทะเบียนจองคิวของสำนักสักยันต์รัตนเกล้า เลือกวัน เวลา และบริการที่ต้องการได้ทันที พร้อมรับการยืนยันคิวอย่างเป็นระบบ
+          </p>
+          <div class="d-flex flex-wrap justify-content-center gap-3">
+            <button class="btn btn-gold px-4 py-2 fs-6" onclick="openBookingModal()">
+              <i class="fa-solid fa-window-maximize me-2"></i> เปิดหน้าต่างจองคิวทันที
+            </button>
+            <a id="directBookingLink" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-outline-gold px-4 py-2 fs-6">
+              <i class="fa-solid fa-arrow-up-right-from-square me-2"></i> เปิดระบบจองคิวเต็มหน้าจอ
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rules & Contact Section -->
+    <section id="rules" class="section-pad pt-0">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <div class="sacred-card p-4 h-100">
+              <h4 class="text-gold fw-bold mb-3"><i class="fa-solid fa-scroll me-2"></i>ข้อปฏิบัติและเตรียมตัวก่อนมาสำนัก</h4>
+              <div id="shrineRulesContent" class="text-light" style="white-space: pre-line; line-height: 1.85; font-size: 0.96rem;"></div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="sacred-card p-4 h-100">
+              <h4 class="text-gold fw-bold mb-3"><i class="fa-solid fa-map-location-dot me-2"></i>ติดต่อและที่ตั้งสำนัก</h4>
+              <ul class="list-unstyled d-flex flex-column gap-3 mb-4">
+                <li class="d-flex align-items-start gap-3">
+                  <i class="fa-solid fa-location-dot text-gold mt-1"></i>
+                  <div>
+                    <div class="small text-muted-custom">ที่ตั้งสำนัก</div>
+                    <div id="contactAddress">-</div>
+                  </div>
+                </li>
+                <li class="d-flex align-items-start gap-3">
+                  <i class="fa-solid fa-clock text-gold mt-1"></i>
+                  <div>
+                    <div class="small text-muted-custom">เวลาทำการ</div>
+                    <div id="contactHours">-</div>
+                  </div>
+                </li>
+                <li class="d-flex align-items-start gap-3">
+                  <i class="fa-solid fa-phone text-gold mt-1"></i>
+                  <div>
+                    <div class="small text-muted-custom">เบอร์โทรศัพท์</div>
+                    <div id="contactPhone">-</div>
+                  </div>
+                </li>
+                <li class="d-flex align-items-start gap-3">
+                  <i class="fa-brands fa-line text-gold mt-1"></i>
+                  <div>
+                    <div class="small text-muted-custom">LINE ID</div>
+                    <div id="contactLine">-</div>
+                  </div>
+                </li>
+                <li class="d-flex align-items-start gap-3">
+                  <i class="fa-brands fa-facebook text-gold mt-1"></i>
+                  <div>
+                    <div class="small text-muted-custom">Facebook</div>
+                    <div id="contactFacebook">-</div>
+                  </div>
+                </li>
+              </ul>
+              <a id="contactMapBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-outline-gold w-100">
+                <i class="fa-solid fa-route me-2"></i> เปิดแผนที่นำทาง Google Maps
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 text-center border-top border-warning border-opacity-25">
+      <div class="container">
+        <div class="font-sacred text-gold fw-bold mb-1" id="footerShrineName">สำนักสักยันต์รัตนเกล้า</div>
+        <div class="small text-muted-custom">
+          © <span id="footerYear"></span> สำนักสักยันต์รัตนเกล้า • สงวนลิขสิทธิ์ •
+          <span id="connectionBadge" class="ms-1"></span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Floating Mobile CTA -->
+    <button class="btn btn-gold floating-book-btn d-md-none" onclick="openBookingModal()">
+      <i class="fa-solid fa-calendar-check me-1"></i> จองคิว
+    </button>
+  </div>
+
+  <!-- =========================================================
+       BACKEND VIEW (หลังบ้าน Admin Panel)
+       ========================================================= -->
+  <div id="adminView">
+    <nav class="navbar navbar-dark navbar-custom sticky-top">
+      <div class="container-fluid px-3 px-md-4">
+        <div class="d-flex align-items-center gap-2">
+          <span class="brand-emblem" style="width:36px;height:36px;font-size:1rem;"><i class="fa-solid fa-user-shield"></i></span>
+          <div>
+            <div class="fw-bold text-gold lh-1">ระบบจัดการหลังบ้าน</div>
+            <small class="text-muted-custom" id="adminModeIndicator">กำลังตรวจสอบการเชื่อมต่อ...</small>
+          </div>
+        </div>
+        <div class="d-flex gap-2">
+          <button class="btn btn-outline-gold btn-sm" onclick="exitAdminView()">
+            <i class="fa-solid fa-eye me-1"></i> ดูหน้าบ้าน
+          </button>
+          <button class="btn btn-danger btn-sm rounded-pill px-3" onclick="logoutAdmin()">
+            <i class="fa-solid fa-right-from-bracket me-1"></i> ออกจากระบบ
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid px-3 px-md-4 py-4">
+      <!-- Admin Tabs -->
+      <div class="d-flex flex-wrap gap-2 mb-4 pb-3 border-bottom border-warning border-opacity-25">
+        <button class="admin-nav-pill active" id="tabBtnPortfolio" onclick="switchAdminTab('portfolio')">
+          <i class="fa-solid fa-images me-2"></i> จัดการผลงาน (<span id="adminCountWorks">0</span>)
+        </button>
+        <button class="admin-nav-pill" id="tabBtnSchedule" onclick="switchAdminTab('schedule')">
+          <i class="fa-solid fa-calendar-days me-2"></i> จัดการตารางงาน (<span id="adminCountSchedule">0</span>)
+        </button>
+        <button class="admin-nav-pill" id="tabBtnSettings" onclick="switchAdminTab('settings')">
+          <i class="fa-solid fa-sliders me-2"></i> ตั้งค่าสำนัก & ลิงก์จองคิว
+        </button>
+      </div>
+
+      <!-- Admin Tab 1: Portfolio Management -->
+      <div id="adminTabPortfolio">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+          <h4 class="text-gold mb-0">รายการผลงานทั้งหมด</h4>
+          <button class="btn btn-gold btn-sm" onclick="openWorkFormModal()">
+            <i class="fa-solid fa-plus me-1"></i> เพิ่มผลงานใหม่
+          </button>
+        </div>
+        <div class="table-responsive sacred-card p-2">
+          <table class="table table-dark-custom align-middle mb-0">
+            <thead>
+              <tr class="text-gold">
+                <th style="width:80px;">รูปภาพ</th>
+                <th>ชื่อผลงาน / หมวดหมู่</th>
+                <th class="d-none d-md-table-cell">พุทธคุณ / รายละเอียด</th>
+                <th>สถานะ</th>
+                <th class="text-end" style="width:130px;">จัดการ</th>
+              </tr>
+            </thead>
+            <tbody id="adminPortfolioTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Admin Tab 2: Schedule Management -->
+      <div id="adminTabSchedule" style="display:none;">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+          <h4 class="text-gold mb-0">ตารางงานสำนักทั้งหมด</h4>
+          <button class="btn btn-gold btn-sm" onclick="openScheduleFormModal()">
+            <i class="fa-solid fa-plus me-1"></i> เพิ่มตารางงานใหม่
+          </button>
+        </div>
+        <div class="table-responsive sacred-card p-2">
+          <table class="table table-dark-custom align-middle mb-0">
+            <thead>
+              <tr class="text-gold">
+                <th>วันที่ / เวลา</th>
+                <th>กิจกรรม / งาน</th>
+                <th>สถานะ</th>
+                <th class="d-none d-md-table-cell">สถานที่ / หมายเหตุ</th>
+                <th class="text-end" style="width:130px;">จัดการ</th>
+              </tr>
+            </thead>
+            <tbody id="adminScheduleTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Admin Tab 3: Settings -->
+      <div id="adminTabSettings" style="display:none;">
+        <form id="settingsForm" onsubmit="saveSettingsForm(event)" class="sacred-card p-4" style="max-width: 860px;">
+          <h4 class="text-gold mb-3"><i class="fa-solid fa-gear me-2"></i>ตั้งค่าข้อมูลสำนัก & การเชื่อมโยง</h4>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label small text-gold">ชื่อสำนัก</label>
+              <input type="text" id="setShrineName" class="form-control form-control-dark" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small text-gold">ข้อความประกาศหน้าแรก</label>
+              <input type="text" id="setAnnouncement" class="form-control form-control-dark" />
+            </div>
+            <div class="col-12">
+              <label class="form-label small text-gold">คำโปรยแนะนำสำนัก</label>
+              <textarea id="setSubtitle" rows="2" class="form-control form-control-dark"></textarea>
+            </div>
+            <div class="col-12">
+              <label class="form-label small text-gold">ลิงก์ระบบจองคิวออนไลน์ (Google Apps Script URL)</label>
+              <input type="url" id="setBookingUrl" class="form-control form-control-dark" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small text-gold">ที่ตั้งสำนัก</label>
+              <input type="text" id="setAddress" class="form-control form-control-dark" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small text-gold">เวลาทำการ</label>
+              <input type="text" id="setHours" class="form-control form-control-dark" />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label small text-gold">เบอร์โทรศัพท์</label>
+              <input type="text" id="setPhone" class="form-control form-control-dark" />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label small text-gold">LINE ID</label>
+              <input type="text" id="setLine" class="form-control form-control-dark" />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label small text-gold">Facebook</label>
+              <input type="text" id="setFacebook" class="form-control form-control-dark" />
+            </div>
+            <div class="col-12">
+              <label class="form-label small text-gold">ลิงก์ Google Maps</label>
+              <input type="url" id="setMapUrl" class="form-control form-control-dark" />
+            </div>
+            <div class="col-12">
+              <label class="form-label small text-gold">ข้อปฏิบัติและเตรียมตัวก่อนมาสัก (ขึ้นบรรทัดใหม่ได้)</label>
+              <textarea id="setRules" rows="5" class="form-control form-control-dark"></textarea>
+            </div>
+
+            <div class="col-12 pt-3 border-top border-warning border-opacity-25">
+              <h6 class="text-gold mb-2"><i class="fa-solid fa-key me-1"></i> เปลี่ยนรหัสผ่านผู้ดูแล (เว้นว่างหากไม่ต้องการเปลี่ยน)</h6>
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <input type="password" id="setNewPassword" class="form-control form-control-dark" placeholder="รหัสผ่านใหม่" />
+                </div>
+                <div class="col-md-6">
+                  <input type="password" id="setConfirmPassword" class="form-control form-control-dark" placeholder="ยืนยันรหัสผ่านใหม่" />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 text-end mt-3">
+              <button type="submit" class="btn btn-gold px-4">
+                <i class="fa-solid fa-floppy-disk me-2"></i> บันทึกการตั้งค่า
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODALS
+       ========================================================= -->
+
+  <!-- 1. Work Detail Lightbox Modal -->
+  <div class="modal fade" id="workDetailModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content modal-content-dark overflow-hidden">
+        <div class="modal-header border-bottom border-warning border-opacity-25">
+          <div>
+            <span class="badge bg-warning text-dark me-2" id="wdCategory">หมวดหมู่</span>
+            <h5 class="modal-title d-inline text-gold fw-bold" id="wdTitle">ชื่อผลงาน</h5>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-0">
+          <div class="bg-black text-center">
+            <img id="wdImg" src="" alt="ผลงานสักยันต์" class="img-fluid" style="max-height: 55vh; object-fit: contain;" />
+          </div>
+          <div class="p-4">
+            <div class="mb-2 text-gold small"><i class="fa-solid fa-sparkles me-1"></i> พุทธคุณและรายละเอียด</div>
+            <p id="wdDesc" class="mb-3" style="white-space: pre-line;"></p>
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-3 border-top border-warning border-opacity-25">
+              <div class="small text-muted-custom">
+                <i class="fa-solid fa-location-crosshairs text-gold me-1"></i> ตำแหน่งแนะนำ: <strong class="text-light" id="wdPlacement">-</strong>
+              </div>
+              <button class="btn btn-gold btn-sm" id="wdBookBtn">
+                <i class="fa-solid fa-calendar-check me-1"></i> จองคิวสักลายนี้
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Booking Integration Modal -->
+  <div class="modal fade" id="bookingModal" tabindex="-1">
+    <div class="modal-dialog booking-modal-dialog">
+      <div class="modal-content booking-modal-content d-flex flex-column">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 px-3 py-2 border-bottom border-warning border-opacity-25 bg-black">
+          <div class="d-flex align-items-center gap-2">
+            <i class="fa-solid fa-calendar-check text-gold"></i>
+            <span class="fw-bold text-gold">ระบบจองคิวสำนักสักยันต์รัตนเกล้า</span>
+            <span id="bookingContextBadge" class="badge bg-warning text-dark d-none"></span>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <a id="bookingModalExternalBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-outline-gold btn-sm py-1 px-3">
+              <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> เปิดเต็มหน้าจอ
+            </a>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+        </div>
+        <div class="position-relative flex-grow-1">
+          <div id="iframeLoader" class="position-absolute top-50 start-50 translate-middle text-center">
+            <div class="spinner-border text-warning mb-2" role="status"></div>
+            <div class="small text-gold">กำลังเชื่อมต่อระบบจองคิว...</div>
+            <div class="small text-muted-custom mt-1">หากหน้าจอมืดหรือไม่แสดงผล กดปุ่ม "เปิดเต็มหน้าจอ" ด้านขวาบน</div>
+          </div>
+          <iframe id="bookingIframe" class="booking-iframe" src="about:blank" onload="document.getElementById('iframeLoader').style.display='none'"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Admin Login Modal -->
+  <div class="modal fade" id="adminLoginModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content modal-content-dark p-3">
+        <div class="text-center mb-3">
+          <div class="brand-emblem mx-auto mb-2"><i class="fa-solid fa-lock"></i></div>
+          <h5 class="text-gold fw-bold mb-0">เข้าสู่ระบบหลังบ้าน</h5>
+          <small class="text-muted-custom">เฉพาะผู้ดูแลสำนักสักยันต์รัตนเกล้า</small>
+        </div>
+        <form onsubmit="handleAdminLogin(event)">
+          <div class="mb-3">
+            <label class="form-label small text-gold">ชื่อผู้ใช้</label>
+            <input type="text" id="loginUser" class="form-control form-control-dark" value="admin" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label small text-gold">รหัสผ่าน</label>
+            <input type="password" id="loginPass" class="form-control form-control-dark" placeholder="กรอกรหัสผ่าน" required />
+          </div>
+          <div class="small text-muted-custom mb-3" id="loginHintText"></div>
+          <button type="submit" class="btn btn-gold w-100">เข้าสู่ระบบ</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Admin Add/Edit Portfolio Modal -->
+  <div class="modal fade" id="workFormModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content modal-content-dark">
+        <div class="modal-header border-bottom border-warning border-opacity-25">
+          <h5 class="modal-title text-gold fw-bold" id="workFormTitle">เพิ่มผลงานใหม่</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <form onsubmit="saveWorkForm(event)">
+          <div class="modal-body">
+            <input type="hidden" id="wfId" />
+            <input type="hidden" id="wfExistingImg" />
+            <div class="row g-3">
+              <div class="col-md-7">
+                <label class="form-label small text-gold">ชื่อผลงาน / ชื่อยันต์ *</label>
+                <input type="text" id="wfTitle" class="form-control form-control-dark" placeholder="เช่น ยันต์เก้ายอด ยันต์ครู" required />
+              </div>
+              <div class="col-md-5">
+                <label class="form-label small text-gold">หมวดหมู่ *</label>
+                <select id="wfCategory" class="form-select form-select-dark" required>
+                  <option value="ยันต์ครู/อักขระ">ยันต์ครู/อักขระ</option>
+                  <option value="สักน้ำมัน">สักน้ำมัน</option>
+                  <option value="พุทธศิลป์/สักลาย">พุทธศิลป์/สักลาย</option>
+                  <option value="ลงนะ/เสริมดวง">ลงนะ/เสริมดวง</option>
+                  <option value="พิธีกรรมสำนัก">พิธีกรรมสำนัก</option>
+                </select>
+              </div>
+              <div class="col-md-8">
+                <label class="form-label small text-gold">ตำแหน่งที่แนะนำ</label>
+                <input type="text" id="wfPlacement" class="form-control form-control-dark" placeholder="เช่น ท้ายทอย, แผ่นหลัง, หัวไหล่" />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label small text-gold">การแสดงผล</label>
+                <select id="wfVisible" class="form-select form-select-dark">
+                  <option value="true">แสดงหน้าบ้าน</option>
+                  <option value="false">ซ่อนไว้ก่อน</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label small text-gold">พุทธคุณ / รายละเอียด</label>
+                <textarea id="wfDesc" rows="3" class="form-control form-control-dark" placeholder="ระบุพุทธคุณ เด่นด้านเมตตา แคล้วคลาด คงกระพัน โชคลาภ..."></textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small text-gold">อัปโหลดรูปภาพ (จากเครื่อง/มือถือ)</label>
+                <input type="file" id="wfFile" accept="image/*" class="form-control form-control-dark" onchange="previewWorkImage(event)" />
+                <small class="text-muted-custom">ระบบจะย่อขนาดรูปอัตโนมัติเพื่อความรวดเร็ว</small>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small text-gold">หรือวางลิงก์รูปภาพ (URL)</label>
+                <input type="url" id="wfImgUrl" class="form-control form-control-dark" placeholder="https://..." oninput="previewWorkUrl()" />
+              </div>
+              <div class="col-12 text-center">
+                <img id="wfPreview" src="" alt="Preview" class="rounded border border-warning border-opacity-50 d-none" style="max-height: 200px; object-fit: contain;" />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-top border-warning border-opacity-25">
+            <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">ยกเลิก</button>
+            <button type="submit" class="btn btn-gold px-4">บันทึกผลงาน</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Admin Add/Edit Schedule Modal -->
+  <div class="modal fade" id="scheduleFormModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-content-dark">
+        <div class="modal-header border-bottom border-warning border-opacity-25">
+          <h5 class="modal-title text-gold fw-bold" id="scheduleFormTitle">เพิ่มตารางงานใหม่</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <form onsubmit="saveScheduleForm(event)">
+          <div class="modal-body">
+            <input type="hidden" id="sfId" />
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label small text-gold">วันที่ *</label>
+                <input type="date" id="sfDate" class="form-control form-control-dark" required />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small text-gold">ช่วงเวลา</label>
+                <input type="text" id="sfTime" class="form-control form-control-dark" placeholder="เช่น 09:00 - 18:00 น." />
+              </div>
+              <div class="col-12">
+                <label class="form-label small text-gold">ชื่องาน / กิจกรรม *</label>
+                <input type="text" id="sfTitle" class="form-control form-control-dark" placeholder="เช่น เปิดรับศิษย์สักยันต์รอบปกติ" required />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small text-gold">สถานะ *</label>
+                <select id="sfStatus" class="form-select form-select-dark" required>
+                  <option value="open">เปิดรับศิษย์</option>
+                  <option value="special">พิธีพิเศษ / ไหว้ครู</option>
+                  <option value="offsite">ออกงานนอกสถานที่</option>
+                  <option value="full">คิวเต็ม</option>
+                  <option value="closed">ปิดสำนัก / วันหยุด</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small text-gold">สถานที่</label>
+                <input type="text" id="sfLocation" class="form-control form-control-dark" value="สำนักสักยันต์รัตนเกล้า" />
+              </div>
+              <div class="col-12">
+                <label class="form-label small text-gold">รายละเอียดเพิ่มเติม</label>
+                <textarea id="sfNote" rows="3" class="form-control form-control-dark" placeholder="หมายเหตุ เช่น รับจำกัดวันละ 10 คิว หรือรายละเอียดการแต่งกาย"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-top border-warning border-opacity-25">
+            <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">ยกเลิก</button>
+            <button type="submit" class="btn btn-gold px-4">บันทึกตารางงาน</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    // =========================================================================
+    // CONFIGURATION: วางลิงก์ Web App URL ที่ได้จากการ Deploy ไฟล์ Code.gs ที่นี่
+    // หากเว้นว่างไว้ ("") ระบบจะทำงานในโหมด Demo (บันทึกในเครื่อง) ให้ทดสอบทันที
+    // =========================================================================
+    const API_URL = "https://script.google.com/macros/s/AKfycbwqJpHtUzGEWn-Yzi-8eUIwkqDnsD6JIqYszxwMBeDtk9_A90ASLG-WxDeDl0448hlkXQ/exec";
+
+    const DEFAULT_BOOKING_URL =
+      "https://script.google.com/macros/s/AKfycbwvRNDudbHrnsybZThWrBisHJaAh-JzCh48OltlcpxkF6QAwgtfpU6mVyhT5Y9yyWSN/exec?safe=active";
+
+    // Thai Calendar Constants
+    const THAI_MONTHS = [
+      "มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน",
+      "กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"
+    ];
+
+    const STATUS_META = {
+      open:    { label: "เปิดรับศิษย์",       cls: "st-open",    icon: "fa-circle-check", dot: "#19c37d" },
+      special: { label: "พิธีพิเศษ/ไหว้ครู",  cls: "st-special", icon: "fa-star",         dot: "#f4d87c" },
+      offsite: { label: "ออกงานนอกสถานที่",  cls: "st-offsite", icon: "fa-location-dot", dot: "#38bdf8" },
+      full:    { label: "คิวเต็ม",            cls: "st-full",    icon: "fa-ban",          dot: "#ef4444" },
+      closed:  { label: "ปิดสำนัก",          cls: "st-closed",  icon: "fa-moon",         dot: "#6b7280" }
+    };
+
+    // Global State
+    let appData = { portfolio: [], schedule: [], settings: {} };
+    let activeCategory = "ทั้งหมด";
+    let currentCalDate = new Date();
+    let selectedDateStr = null;
+    let pendingBase64Image = "";
+    let adminAuth = null; // { username, password }
+
+    // Demo Starter Data (ใช้เมื่อยังไม่ได้ต่อ Code.gs)
+    function getDefaultDemoData() {
+      const today = new Date();
+      const fmt = (offset) => {
+        const d = new Date(today);
+        d.setDate(d.getDate() + offset);
+        return toISODate(d);
+      };
+      return {
+        settings: {
+          shrineName: "สำนักสักยันต์รัตนเกล้า",
+          announcement: "เปิดรับศิษย์ลงอักขระเลขยันต์ เสริมสิริมงคล จองคิวล่วงหน้าผ่านระบบออนไลน์",
+          subtitle: "สืบสานพุทธศิลป์และอักขระเลขยันต์โบราณ ด้วยความประณีต เข้มขลัง และสะอาดปลอดภัย ตรวจสอบผลงาน ตารางงาน และจองคิวล่วงหน้าได้ตลอด 24 ชั่วโมง",
+          bookingUrl: DEFAULT_BOOKING_URL,
+          address: "สำนักสักยันต์รัตนเกล้า อ.พุนพิน จ.สุราษฎร์ธานี",
+          hours: "เปิดรับศิษย์ 09:00 - 18:00 น. (กรุณาจองคิวล่วงหน้า)",
+          phone: "08X-XXX-XXXX",
+          line: "Armcpe",
+          facebook: "สำนักสักยันต์รัตนเกล้า",
+          mapUrl: "https://maps.google.com/?q=Phunphin+Surat+Thani",
+          rules: "1. เตรียมดอกไม้ ธูป เทียน พานครู ตามที่สำนักกำหนด\n2. แต่งกายสุภาพ สะอาด เหมาะสมกับตำแหน่งที่จะสัก\n3. พักผ่อนให้เพียงพอ งดดื่มเครื่องดื่มแอลกอฮอล์ก่อนมาสักอย่างน้อย 24 ชั่วโมง\n4. ปฏิบัติตามศีลและข้อห้ามของครูบาอาจารย์อย่างเคร่งครัด เพื่อความเป็นสิริมงคลสูงสุด\n5. กรุณามาก่อนเวลานัดหมายอย่างน้อย 15 นาที"
+        },
+        portfolio: [
+          {
+            id: "W-1001",
+            title: "ยันต์เก้ายอด (ยันต์ครู)",
+            category: "ยันต์ครู/อักขระ",
+            placement: "ท้ายทอย / แผ่นหลังส่วนบน",
+            description: "ยันต์ครูยอดนิยมที่เปรียบเสมือนการรับครูและปกปักรักษาคุ้มครอง แคล้วคลาดปลอดภัย ป้องกันภัยอันตรายและสิ่งอัปมงคลทั้งปวง",
+            imageUrl: "https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?auto=format&fit=crop&w=900&q=80",
+            visible: true
+          },
+          {
+            id: "W-1002",
+            title: "ยันต์ห้าแถวหนุนดวง",
+            category: "ยันต์ครู/อักขระ",
+            placement: "หัวไหล่ซ้าย / แผ่นหลัง",
+            description: "อักขระห้าแถวเสริมชะตา แก้ฮวงจุ้ย หนุนดวงชะตา ป้องกันคุณไสย เสริมเมตตามหานิยม โชคลาภ และความเจริญก้าวหน้าในหน้าที่การงาน",
+            imageUrl: "https://images.unsplash.com/photo-1590246814883-57c511f7653e?auto=format&fit=crop&w=900&q=80",
+            visible: true
+          },
+          {
+            id: "W-1003",
+            title: "สักน้ำมันเมตตามหานิยม",
+            category: "สักน้ำมัน",
+            placement: "แผ่นหลัง / ต้นแขน",
+            description: "ลงอักขระด้วยน้ำมันว่านมงคล เหมาะสำหรับผู้ที่ต้องการพุทธคุณโดยไม่ทิ้งรอยหมึก เด่นด้านเจรจาค้าขาย ค้าคล่อง และผู้ใหญ่เอ็นดู",
+            imageUrl: "https://images.unsplash.com/photo-1562962230-16e4623d36e6?auto=format&fit=crop&w=900&q=80",
+            visible: true
+          },
+          {
+            id: "W-1004",
+            title: "พิธีลงนะหน้าทองเสริมบารมี",
+            category: "ลงนะ/เสริมดวง",
+            placement: "ใบหน้า / ฝ่ามือ",
+            description: "พิธีเสริมสิริมงคลด้วยแผ่นทองคำเปลวแท้และอักขระเมตตา เพิ่มเสน่ห์ ราศี และเปิดรับโชคลาภทางธุรกิจการงาน",
+            imageUrl: "https://images.unsplash.com/photo-1542728928-1413d1894ed1?auto=format&fit=crop&w=900&q=80",
+            visible: true
+          }
+        ],
+        schedule: [
+          {
+            id: "S-2001",
+            date: fmt(0),
+            time: "09:00 - 18:00 น.",
+            title: "เปิดรับศิษย์สักยันต์และลงนะรอบปกติ",
+            status: "open",
+            location: "สำนักสักยันต์รัตนเกล้า",
+            note: "รับเฉพาะศิษย์ที่จองคิวล่วงหน้าผ่านระบบออนไลน์"
+          },
+          {
+            id: "S-2002",
+            date: fmt(2),
+            time: "09:00 - 18:00 น.",
+            title: "รับศิษย์สักยันต์ (คิวเต็มแล้ว)",
+            status: "full",
+            location: "สำนักสักยันต์รัตนเกล้า",
+            note: "คิวรอบวันนี้เต็มแล้ว กรุณาเลือกจองในวันถัดไป"
+          },
+          {
+            id: "S-2003",
+            date: fmt(5),
+            time: "08:30 - 15:00 น.",
+            title: "พิธีไหว้ครูและครอบเศียรเสริมบารมี",
+            status: "special",
+            location: "สำนักสักยันต์รัตนเกล้า",
+            note: "ขอเชิญศิษยานุศิษย์ทุกท่านร่วมพิธี แต่งกายชุดสุภาพสีขาว"
+          },
+          {
+            id: "S-2004",
+            date: fmt(9),
+            time: "ทั้งวัน",
+            title: "ออกงานพิธีนอกสถานที่",
+            status: "offsite",
+            location: "จ.สุราษฎร์ธานี",
+            note: "งดรับศิษย์ที่สำนักชั่วคราว 1 วัน"
+          }
+        ]
+      };
+    }
+
+    // =========================================================================
+    // INITIALIZATION & DATA LOADING
+    // =========================================================================
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("footerYear").textContent = new Date().getFullYear() + 543;
+      const savedAuth = sessionStorage.getItem("rk_admin_auth");
+      if (savedAuth) {
+        try { adminAuth = JSON.parse(savedAuth); } catch (e) {}
+      }
+      loadAllData();
+    });
+
+    async function loadAllData() {
+      toggleLoader(true);
+      try {
+        if (API_URL && API_URL.trim() !== "") {
+          const res = await fetch(`${API_URL}?action=getData`);
+          const json = await res.json();
+          if (json.status === "success") {
+            appData = json.data;
+          } else {
+            throw new Error(json.message || "โหลดข้อมูลไม่สำเร็จ");
+          }
+        } else {
+          // Local Demo Mode
+          const local = localStorage.getItem("rk_demo_data_v1");
+          if (local) {
+            appData = JSON.parse(local);
+          } else {
+            appData = getDefaultDemoData();
+            localStorage.setItem("rk_demo_data_v1", JSON.stringify(appData));
+          }
+        }
+        renderEverything();
+      } catch (err) {
+        console.error(err);
+        Swal.fire({
+          icon: "warning",
+          title: "เชื่อมต่อฐานข้อมูลไม่สำเร็จ",
+          text: "ระบบสลับไปแสดงข้อมูลสำรองชั่วคราว กรุณาตรวจสอบลิงก์ API_URL",
+          background: "#121216",
+          color: "#f3efe6",
+          confirmButtonColor: "#d4af37"
+        });
+        appData = getDefaultDemoData();
+        renderEverything();
+      } finally {
+        toggleLoader(false);
+      }
+    }
+
+    function saveDemoLocal() {
+      localStorage.setItem("rk_demo_data_v1", JSON.stringify(appData));
+    }
+
+    async function apiPost(payload) {
+      if (API_URL && API_URL.trim() !== "") {
+        const res = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
+        });
+        return await res.json();
+      }
+      // Demo Mode Handler
+      return handleDemoPost(payload);
+    }
+
+    function handleDemoPost(payload) {
+      const demoPass = localStorage.getItem("rk_demo_pass") || "1234";
+      if (payload.action === "login") {
+        if (payload.username === "admin" && payload.password === demoPass) {
+          return { status: "success" };
+        }
+        return { status: "error", message: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง (โหมดทดสอบ: admin / 1234)" };
+      }
+
+      if (payload.auth?.password !== demoPass) {
+        return { status: "error", message: "สิทธิ์ผู้ดูแลหมดอายุ กรุณาเข้าสู่ระบบใหม่" };
+      }
+
+      if (payload.action === "savePortfolio") {
+        const item = payload.item;
+        if (item.imageBase64) item.imageUrl = item.imageBase64;
+        delete item.imageBase64;
+        if (item.id) {
+          const idx = appData.portfolio.findIndex((x) => x.id === item.id);
+          if (idx > -1) appData.portfolio[idx] = item;
+        } else {
+          item.id = "W-" + Date.now();
+          appData.portfolio.unshift(item);
+        }
+        saveDemoLocal();
+        return { status: "success", data: appData };
+      }
+
+      if (payload.action === "deletePortfolio") {
+        appData.portfolio = appData.portfolio.filter((x) => x.id !== payload.id);
+        saveDemoLocal();
+        return { status: "success", data: appData };
+      }
+
+      if (payload.action === "saveSchedule") {
+        const item = payload.item;
+        if (item.id) {
+          const idx = appData.schedule.findIndex((x) => x.id === item.id);
+          if (idx > -1) appData.schedule[idx] = item;
+        } else {
+          item.id = "S-" + Date.now();
+          appData.schedule.push(item);
+        }
+        saveDemoLocal();
+        return { status: "success", data: appData };
+      }
+
+      if (payload.action === "deleteSchedule") {
+        appData.schedule = appData.schedule.filter((x) => x.id !== payload.id);
+        saveDemoLocal();
+        return { status: "success", data: appData };
+      }
+
+      if (payload.action === "saveSettings") {
+        appData.settings = { ...appData.settings, ...payload.settings };
+        if (payload.newPassword) {
+          localStorage.setItem("rk_demo_pass", payload.newPassword);
+        }
+        saveDemoLocal();
+        return { status: "success", data: appData };
+      }
+      return { status: "error", message: "Unknown action" };
+    }
+
+    // =========================================================================
+    // RENDER FRONTEND
+    // =========================================================================
+    function renderEverything() {
+      renderSettingsUI();
+      renderCategoryPills();
+      renderPortfolio();
+      renderCalendar();
+      renderUpcomingSchedule();
+      renderStats();
+      renderAdminTables();
+    }
+
+    function renderSettingsUI() {
+      const s = appData.settings || {};
+      const name = s.shrineName || "สำนักสักยันต์รัตนเกล้า";
+      const bookingUrl = s.bookingUrl || DEFAULT_BOOKING_URL;
+
+      document.title = `${name} | พุทธศิลป์และอักขระเลขยันต์โบราณ`;
+      document.getElementById("navShrineName").textContent = name;
+      document.getElementById("heroTitle").textContent = name;
+      document.getElementById("footerShrineName").textContent = name;
+      document.getElementById("heroAnnouncement").textContent = s.announcement || "";
+      document.getElementById("heroAnnouncementWrap").style.display = s.announcement ? "inline-flex" : "none";
+      document.getElementById("heroSubtitle").textContent = s.subtitle || "";
+
+      document.getElementById("directBookingLink").href = bookingUrl;
+      document.getElementById("bookingModalExternalBtn").href = bookingUrl;
+
+      document.getElementById("shrineRulesContent").textContent = s.rules || "-";
+      document.getElementById("contactAddress").textContent = s.address || "-";
+      document.getElementById("contactHours").textContent = s.hours || "-";
+      document.getElementById("contactPhone").textContent = s.phone || "-";
+      document.getElementById("contactLine").textContent = s.line || "-";
+      document.getElementById("contactFacebook").textContent = s.facebook || "-";
+
+      const mapBtn = document.getElementById("contactMapBtn");
+      if (s.mapUrl) {
+        mapBtn.href = s.mapUrl;
+        mapBtn.style.display = "inline-block";
+      } else {
+        mapBtn.style.display = "none";
+      }
+
+      const isCloud = API_URL && API_URL.trim() !== "";
+      document.getElementById("connectionBadge").innerHTML = isCloud
+        ? '<span class="text-success"><i class="fa-solid fa-cloud"></i> Cloud Sync</span>'
+        : '<span class="text-warning"><i class="fa-solid fa-flask"></i> Demo Mode</span>';
+      document.getElementById("adminModeIndicator").innerHTML = isCloud
+        ? '<span class="text-success">เชื่อมต่อ Google Sheets & Drive แล้ว</span>'
+        : '<span class="text-warning">โหมดทดสอบในเครื่อง (ใส่ API_URL เพื่อเชื่อม Cloud)</span>';
+    }
+
+    function renderStats() {
+      const visibleWorks = (appData.portfolio || []).filter((w) => w.visible !== false && String(w.visible) !== "false");
+      document.getElementById("statWorks").textContent = visibleWorks.length;
+
+      const todayStr = toISODate(new Date());
+      const openUpcoming = (appData.schedule || []).filter((s) => s.date >= todayStr && (s.status === "open" || s.status === "special"));
+      document.getElementById("statOpenDays").textContent = openUpcoming.length;
+
+      const todayEvents = (appData.schedule || []).filter((s) => s.date === todayStr);
+      const statusEl = document.getElementById("statTodayStatus");
+      if (todayEvents.length > 0) {
+        const meta = STATUS_META[todayEvents[0].status] || STATUS_META.open;
+        statusEl.innerHTML = `<span class="badge-status ${meta.cls}"><i class="fa-solid ${meta.icon}"></i> ${meta.label}</span>`;
+      } else {
+        statusEl.innerHTML = `<span class="text-gold">เปิดให้จองคิวออนไลน์</span>`;
+      }
+    }
+
+    function renderCategoryPills() {
+      const visibleWorks = (appData.portfolio || []).filter((w) => w.visible !== false && String(w.visible) !== "false");
+      const cats = ["ทั้งหมด", ...new Set(visibleWorks.map((w) => w.category).filter(Boolean))];
+      const container = document.getElementById("categoryFilters");
+      container.innerHTML = cats
+        .map(
+          (cat) => `
+          <button class="filter-btn ${cat === activeCategory ? "active" : ""}" onclick="selectCategory('${escapeJs(cat)}')">
+            ${escapeHtml(cat)}
+          </button>`
+        )
+        .join("");
+    }
+
+    function selectCategory(cat) {
+      activeCategory = cat;
+      renderCategoryPills();
+      renderPortfolio();
+    }
+
+    function renderPortfolio() {
+      const q = (document.getElementById("workSearchInput").value || "").trim().toLowerCase();
+      const grid = document.getElementById("portfolioGrid");
+
+      const list = (appData.portfolio || []).filter((w) => {
+        if (w.visible === false || String(w.visible) === "false") return false;
+        if (activeCategory !== "ทั้งหมด" && w.category !== activeCategory) return false;
+        if (q) {
+          const hay = `${w.title} ${w.category} ${w.description} ${w.placement}`.toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+
+      if (list.length === 0) {
+        grid.innerHTML = `
+          <div class="col-12 text-center py-5">
+            <i class="fa-regular fa-images fa-3x text-muted-custom mb-3"></i>
+            <div class="text-muted-custom">ไม่พบผลงานที่ตรงกับเงื่อนไข</div>
+          </div>`;
+        return;
+      }
+
+      grid.innerHTML = list
+        .map(
+          (w) => `
+          <div class="col-sm-6 col-lg-4">
+            <div class="sacred-card h-100 d-flex flex-column">
+              <div class="work-img-wrap" onclick="openWorkDetail('${escapeJs(w.id)}')">
+                <img src="${escapeHtml(w.imageUrl || "https://via.placeholder.com/600x450/111/d4af37?text=Rattanaklao")}" alt="${escapeHtml(w.title)}" loading="lazy" />
+                <span class="work-badge">${escapeHtml(w.category || "ผลงาน")}</span>
+              </div>
+              <div class="p-3 d-flex flex-column flex-grow-1">
+                <h5 class="text-gold fw-bold mb-1">${escapeHtml(w.title)}</h5>
+                <p class="small text-muted-custom flex-grow-1 mb-3" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">
+                  ${escapeHtml(w.description || "")}
+                </p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-warning border-opacity-10">
+                  <button class="btn btn-sm btn-link text-gold text-decoration-none p-0" onclick="openWorkDetail('${escapeJs(w.id)}')">
+                    ดูรายละเอียด <i class="fa-solid fa-angle-right"></i>
+                  </button>
+                  <button class="btn btn-outline-gold btn-sm py-1 px-3" onclick="openBookingModal('สนใจ: ${escapeJs(w.title)}')">
+                    จองคิว
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>`
+        )
+        .join("");
+    }
+
+    function openWorkDetail(id) {
+      const w = (appData.portfolio || []).find((x) => x.id === id);
+      if (!w) return;
+      document.getElementById("wdCategory").textContent = w.category || "ผลงาน";
+      document.getElementById("wdTitle").textContent = w.title;
+      document.getElementById("wdImg").src = w.imageUrl || "";
+      document.getElementById("wdDesc").textContent = w.description || "-";
+      document.getElementById("wdPlacement").textContent = w.placement || "ตามความเหมาะสม";
+      document.getElementById("wdBookBtn").onclick = () => {
+        bootstrap.Modal.getInstance(document.getElementById("workDetailModal")).hide();
+        openBookingModal(`สนใจ: ${w.title}`);
+      };
+      new bootstrap.Modal(document.getElementById("workDetailModal")).show();
+    }
+
+    // =========================================================================
+    // CALENDAR & SCHEDULE
+    // =========================================================================
+    function changeMonth(delta) {
+      currentCalDate.setMonth(currentCalDate.getMonth() + delta);
+      renderCalendar();
+    }
+
+    function renderCalendar() {
+      const year = currentCalDate.getFullYear();
+      const month = currentCalDate.getMonth();
+      document.getElementById("calMonthTitle").textContent = `${THAI_MONTHS[month]} พ.ศ. ${year + 543}`;
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const todayStr = toISODate(new Date());
+
+      const eventsByDate = {};
+      (appData.schedule || []).forEach((ev) => {
+        if (!eventsByDate[ev.date]) eventsByDate[ev.date] = [];
+        eventsByDate[ev.date].push(ev);
+      });
+
+      let html = "";
+      for (let i = 0; i < firstDay; i++) {
+        html += `<div class="cal-cell empty"></div>`;
+      }
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+        const evs = eventsByDate[dStr] || [];
+        const isToday = dStr === todayStr ? "today" : "";
+        const isSelected = dStr === selectedDateStr ? "selected" : "";
+        const dots = evs
+          .slice(0, 3)
+          .map((e) => `<span class="cal-dot" style="background:${(STATUS_META[e.status] || STATUS_META.open).dot};"></span>`)
+          .join("");
+
+        html += `
+          <div class="cal-cell ${isToday} ${isSelected}" onclick="selectCalendarDate('${dStr}')">
+            <span class="fw-medium">${day}</span>
+            <div class="cal-dots">${dots}</div>
+          </div>`;
+      }
+      document.getElementById("calendarDays").innerHTML = html;
+    }
+
+    function selectCalendarDate(dateStr) {
+      selectedDateStr = dateStr;
+      renderCalendar();
+      const evs = (appData.schedule || []).filter((e) => e.date === dateStr);
+      const box = document.getElementById("selectedDayDetail");
+      const thDate = formatThaiDate(dateStr);
+
+      if (evs.length === 0) {
+        box.innerHTML = `
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div>
+              <div class="text-gold fw-bold small">${thDate}</div>
+              <div class="small text-muted-custom">ยังไม่มีกำหนดการพิเศษในวันนี้ สามารถตรวจสอบคิวว่างในระบบจองคิวได้</div>
+            </div>
+            <button class="btn btn-outline-gold btn-sm py-1" onclick="openBookingModal('วันที่ ${escapeJs(thDate)}')">ตรวจสอบคิว</button>
+          </div>`;
+        return;
+      }
+
+      box.innerHTML = `
+        <div class="text-gold fw-bold small mb-2"><i class="fa-solid fa-calendar-day me-1"></i> ${thDate}</div>
+        ${evs
+          .map((e) => {
+            const meta = STATUS_META[e.status] || STATUS_META.open;
+            const canBook = e.status === "open" || e.status === "special";
+            return `
+              <div class="p-2 rounded bg-black bg-opacity-50 border border-warning border-opacity-25 mb-2">
+                <div class="d-flex justify-content-between align-items-start gap-2">
+                  <div>
+                    <span class="badge-status ${meta.cls} mb-1">${meta.label}</span>
+                    <div class="fw-bold small">${escapeHtml(e.title)}</div>
+                    <div class="small text-muted-custom">
+                      ${e.time ? `<i class="fa-regular fa-clock me-1"></i>${escapeHtml(e.time)} • ` : ""}
+                      ${escapeHtml(e.location || "")}
+                    </div>
+                    ${e.note ? `<div class="small text-light opacity-75 mt-1">${escapeHtml(e.note)}</div>` : ""}
+                  </div>
+                  ${
+                    canBook
+                      ? `<button class="btn btn-gold btn-sm py-1 px-2 flex-shrink-0" onclick="openBookingModal('${escapeJs(thDate)}')">จองคิว</button>`
+                      : ""
+                  }
+                </div>
+              </div>`;
+          })
+          .join("")}`;
+    }
+
+    function renderUpcomingSchedule() {
+      const todayStr = toISODate(new Date());
+      const upcoming = (appData.schedule || [])
+        .filter((e) => e.date >= todayStr)
+        .sort((a, b) => a.date.localeCompare(b.date));
+
+      const box = document.getElementById("upcomingScheduleList");
+      if (upcoming.length === 0) {
+        box.innerHTML = `
+          <div class="text-center py-5 text-muted-custom">
+            <i class="fa-regular fa-calendar fa-2x mb-2"></i>
+            <div>ยังไม่มีตารางงานที่กำหนดไว้ในช่วงนี้</div>
+          </div>`;
+        return;
+      }
+
+      box.innerHTML = upcoming
+        .map((e) => {
+          const meta = STATUS_META[e.status] || STATUS_META.open;
+          const thDate = formatThaiDate(e.date);
+          const canBook = e.status === "open" || e.status === "special";
+          return `
+            <div class="schedule-item" style="border-left-color:${meta.dot};">
+              <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                <span class="text-gold fw-bold small"><i class="fa-regular fa-calendar me-1"></i> ${thDate}</span>
+                <span class="badge-status ${meta.cls}"><i class="fa-solid ${meta.icon}"></i> ${meta.label}</span>
+              </div>
+              <div class="fw-bold mb-1">${escapeHtml(e.title)}</div>
+              <div class="small text-muted-custom mb-1">
+                ${e.time ? `<i class="fa-regular fa-clock me-1 text-gold"></i>${escapeHtml(e.time)}` : ""}
+                ${e.location ? `<span class="ms-2"><i class="fa-solid fa-location-dot me-1 text-gold"></i>${escapeHtml(e.location)}</span>` : ""}
+              </div>
+              ${e.note ? `<div class="small text-light opacity-75 mb-2">${escapeHtml(e.note)}</div>` : ""}
+              ${
+                canBook
+                  ? `<div class="text-end mt-2">
+                      <button class="btn btn-outline-gold btn-sm py-1 px-3" onclick="openBookingModal('${escapeJs(thDate)}')">
+                        <i class="fa-solid fa-calendar-check me-1"></i> จองคิววันนี้
+                      </button>
+                    </div>`
+                  : ""
+              }
+            </div>`;
+        })
+        .join("");
+    }
+
+    // =========================================================================
+    // BOOKING INTEGRATION
+    // =========================================================================
+    function openBookingModal(contextText = "") {
+      const bookingUrl = appData.settings?.bookingUrl || DEFAULT_BOOKING_URL;
+      const badge = document.getElementById("bookingContextBadge");
+      if (contextText) {
+        badge.textContent = contextText;
+        badge.classList.remove("d-none");
+      } else {
+        badge.classList.add("d-none");
+      }
+
+      document.getElementById("bookingModalExternalBtn").href = bookingUrl;
+      const iframe = document.getElementById("bookingIframe");
+      const loader = document.getElementById("iframeLoader");
+      if (iframe.src !== bookingUrl) {
+        loader.style.display = "block";
+        iframe.src = bookingUrl;
+      }
+
+      new bootstrap.Modal(document.getElementById("bookingModal")).show();
+    }
+
+    // =========================================================================
+    // ADMIN AUTH & PANEL
+    // =========================================================================
+    function openAdminLogin() {
+      if (adminAuth) {
+        enterAdminView();
+        return;
+      }
+      const isCloud = API_URL && API_URL.trim() !== "";
+      document.getElementById("loginHintText").textContent = isCloud
+        ? "รหัสผ่านเริ่มต้นหลัง Setup คือ: rattanaklao999"
+        : "โหมดทดสอบ (Demo): ผู้ใช้ admin / รหัสผ่าน 1234";
+      document.getElementById("loginPass").value = "";
+      new bootstrap.Modal(document.getElementById("adminLoginModal")).show();
+    }
+
+    async function handleAdminLogin(e) {
+      e.preventDefault();
+      const username = document.getElementById("loginUser").value.trim();
+      const password = document.getElementById("loginPass").value;
+      toggleLoader(true);
+      try {
+        const res = await apiPost({ action: "login", username, password });
+        if (res.status === "success") {
+          adminAuth = { username, password };
+          sessionStorage.setItem("rk_admin_auth", JSON.stringify(adminAuth));
+          bootstrap.Modal.getInstance(document.getElementById("adminLoginModal")).hide();
+          enterAdminView();
+        } else {
+          Swal.fire({ icon: "error", title: "เข้าสู่ระบบไม่สำเร็จ", text: res.message, background: "#121216", color: "#fff" });
+        }
+      } catch (err) {
+        Swal.fire({ icon: "error", title: "เกิดข้อผิดพลาด", text: err.message, background: "#121216", color: "#fff" });
+      } finally {
+        toggleLoader(false);
+      }
+    }
+
+    function enterAdminView() {
+      document.getElementById("publicView").style.display = "none";
+      document.getElementById("adminView").style.display = "block";
+      populateSettingsForm();
+      renderAdminTables();
+      window.scrollTo(0, 0);
+    }
+
+    function exitAdminView() {
+      document.getElementById("adminView").style.display = "none";
+      document.getElementById("publicView").style.display = "block";
+      renderEverything();
+      window.scrollTo(0, 0);
+    }
+
+    function logoutAdmin() {
+      adminAuth = null;
+      sessionStorage.removeItem("rk_admin_auth");
+      exitAdminView();
+    }
+
+    function switchAdminTab(tab) {
+      ["portfolio", "schedule", "settings"].forEach((t) => {
+        document.getElementById(`adminTab${capitalize(t)}`).style.display = t === tab ? "block" : "none";
+        document.getElementById(`tabBtn${capitalize(t)}`).classList.toggle("active", t === tab);
+      });
+    }
+
+    function renderAdminTables() {
+      const works = appData.portfolio || [];
+      const sched = [...(appData.schedule || [])].sort((a, b) => b.date.localeCompare(a.date));
+
+      document.getElementById("adminCountWorks").textContent = works.length;
+      document.getElementById("adminCountSchedule").textContent = sched.length;
+
+      // Portfolio Table
+      const pBody = document.getElementById("adminPortfolioTable");
+      if (works.length === 0) {
+        pBody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-muted-custom">ยังไม่มีผลงาน กดปุ่ม "เพิ่มผลงานใหม่"</td></tr>`;
+      } else {
+        pBody.innerHTML = works
+          .map((w) => {
+            const isVis = w.visible !== false && String(w.visible) !== "false";
+            return `
+              <tr>
+                <td>
+                  <img src="${escapeHtml(w.imageUrl || "")}" class="rounded" style="width:64px;height:48px;object-fit:cover;background:#000;" />
+                </td>
+                <td>
+                  <div class="fw-bold text-gold">${escapeHtml(w.title)}</div>
+                  <span class="badge bg-secondary bg-opacity-50">${escapeHtml(w.category)}</span>
+                </td>
+                <td class="d-none d-md-table-cell small text-muted-custom" style="max-width:300px;">
+                  ${escapeHtml((w.description || "").slice(0, 90))}${(w.description || "").length > 90 ? "..." : ""}
+                </td>
+                <td>
+                  ${isVis ? '<span class="badge bg-success">แสดงผล</span>' : '<span class="badge bg-secondary">ซ่อน</span>'}
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-outline-warning btn-sm me-1" onclick="openWorkFormModal('${escapeJs(w.id)}')"><i class="fa-solid fa-pen"></i></button>
+                  <button class="btn btn-outline-danger btn-sm" onclick="deleteWork('${escapeJs(w.id)}')"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>`;
+          })
+          .join("");
+      }
+
+      // Schedule Table
+      const sBody = document.getElementById("adminScheduleTable");
+      if (sched.length === 0) {
+        sBody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-muted-custom">ยังไม่มีตารางงาน กดปุ่ม "เพิ่มตารางงานใหม่"</td></tr>`;
+      } else {
+        sBody.innerHTML = sched
+          .map((s) => {
+            const meta = STATUS_META[s.status] || STATUS_META.open;
+            return `
+              <tr>
+                <td>
+                  <div class="fw-bold text-gold">${formatThaiDate(s.date)}</div>
+                  <small class="text-muted-custom">${escapeHtml(s.time || "-")}</small>
+                </td>
+                <td class="fw-medium">${escapeHtml(s.title)}</td>
+                <td><span class="badge-status ${meta.cls}">${meta.label}</span></td>
+                <td class="d-none d-md-table-cell small text-muted-custom">
+                  <div>${escapeHtml(s.location || "")}</div>
+                  <div>${escapeHtml(s.note || "")}</div>
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-outline-warning btn-sm me-1" onclick="openScheduleFormModal('${escapeJs(s.id)}')"><i class="fa-solid fa-pen"></i></button>
+                  <button class="btn btn-outline-danger btn-sm" onclick="deleteSchedule('${escapeJs(s.id)}')"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>`;
+          })
+          .join("");
+      }
+    }
+
+    // =========================================================================
+    // ADMIN CRUD: PORTFOLIO
+    // =========================================================================
+    function openWorkFormModal(id = "") {
+      pendingBase64Image = "";
+      document.getElementById("wfFile").value = "";
+      const preview = document.getElementById("wfPreview");
+
+      if (id) {
+        const w = (appData.portfolio || []).find((x) => x.id === id);
+        if (!w) return;
+        document.getElementById("workFormTitle").textContent = "แก้ไขผลงาน";
+        document.getElementById("wfId").value = w.id;
+        document.getElementById("wfTitle").value = w.title || "";
+        document.getElementById("wfCategory").value = w.category || "ยันต์ครู/อักขระ";
+        document.getElementById("wfPlacement").value = w.placement || "";
+        document.getElementById("wfDesc").value = w.description || "";
+        document.getElementById("wfVisible").value = String(w.visible !== false && String(w.visible) !== "false");
+        document.getElementById("wfExistingImg").value = w.imageUrl || "";
+        document.getElementById("wfImgUrl").value = w.imageUrl && !w.imageUrl.startsWith("data:") ? w.imageUrl : "";
+        if (w.imageUrl) {
+          preview.src = w.imageUrl;
+          preview.classList.remove("d-none");
+        } else {
+          preview.classList.add("d-none");
+        }
+      } else {
+        document.getElementById("workFormTitle").textContent = "เพิ่มผลงานใหม่";
+        document.getElementById("wfId").value = "";
+        document.getElementById("wfTitle").value = "";
+        document.getElementById("wfCategory").value = "ยันต์ครู/อักขระ";
+        document.getElementById("wfPlacement").value = "";
+        document.getElementById("wfDesc").value = "";
+        document.getElementById("wfVisible").value = "true";
+        document.getElementById("wfExistingImg").value = "";
+        document.getElementById("wfImgUrl").value = "";
+        preview.classList.add("d-none");
+      }
+
+      new bootstrap.Modal(document.getElementById("workFormModal")).show();
+    }
+
+    function previewWorkImage(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      compressImage(file, 1080, 0.82).then((base64) => {
+        pendingBase64Image = base64;
+        const preview = document.getElementById("wfPreview");
+        preview.src = base64;
+        preview.classList.remove("d-none");
+      });
+    }
+
+    function previewWorkUrl() {
+      const url = document.getElementById("wfImgUrl").value.trim();
+      const preview = document.getElementById("wfPreview");
+      if (url) {
+        pendingBase64Image = "";
+        preview.src = url;
+        preview.classList.remove("d-none");
+      }
+    }
+
+    async function saveWorkForm(e) {
+      e.preventDefault();
+      const imgUrlInput = document.getElementById("wfImgUrl").value.trim();
+      const existingImg = document.getElementById("wfExistingImg").value;
+
+      const item = {
+        id: document.getElementById("wfId").value,
+        title: document.getElementById("wfTitle").value.trim(),
+        category: document.getElementById("wfCategory").value,
+        placement: document.getElementById("wfPlacement").value.trim(),
+        description: document.getElementById("wfDesc").value.trim(),
+        visible: document.getElementById("wfVisible").value === "true",
+        imageUrl: imgUrlInput || existingImg,
+        imageBase64: pendingBase64Image || ""
+      };
+
+      toggleLoader(true);
+      try {
+        const res = await apiPost({ action: "savePortfolio", auth: adminAuth, item });
+        if (res.status === "success") {
+          appData = res.data;
+          bootstrap.Modal.getInstance(document.getElementById("workFormModal")).hide();
+          renderEverything();
+          Swal.fire({ icon: "success", title: "บันทึกผลงานเรียบร้อย", timer: 1400, showConfirmButton: false, background: "#121216", color: "#fff" });
+        } else {
+          Swal.fire({ icon: "error", title: "บันทึกไม่สำเร็จ", text: res.message, background: "#121216", color: "#fff" });
+        }
+      } catch (err) {
+        Swal.fire({ icon: "error", title: "เกิดข้อผิดพลาด", text: err.message, background: "#121216", color: "#fff" });
+      } finally {
+        toggleLoader(false);
+      }
+    }
+
+    async function deleteWork(id) {
+      const confirm = await Swal.fire({
+        icon: "warning",
+        title: "ยืนยันการลบผลงาน?",
+        text: "ข้อมูลที่ลบจะไม่สามารถกู้คืนได้",
+        showCancelButton: true,
+        confirmButtonColor: "#dc3545",
+        confirmButtonText: "ลบข้อมูล",
+        cancelButtonText: "ยกเลิก",
+        background: "#121216",
+        color: "#fff"
+      });
+      if (!confirm.isConfirmed) return;
+
+      toggleLoader(true);
+      try {
+        const res = await apiPost({ action: "deletePortfolio", auth: adminAuth, id });
+        if (res.status === "success") {
+          appData = res.data;
+          renderEverything();
+          Swal.fire({ icon: "success", title: "ลบเรียบร้อยแล้ว", timer: 1200, showConfirmButton: false, background: "#121216", color: "#fff" });
+        } else {
+          Swal.fire({ icon: "error", title: "ลบไม่สำเร็จ", text: res.message, background: "#121216", color: "#fff" });
+        }
+      } finally {
+        toggleLoader(false);
+      }
+    }
+
+    // =========================================================================
+    // ADMIN CRUD: SCHEDULE
+    // =========================================================================
+    function openScheduleFormModal(id = "") {
+      if (id) {
+        const s = (appData.schedule || []).find((x) => x.id === id);
+        if (!s) return;
+        document.getElementById("scheduleFormTitle").textContent = "แก้ไขตารางงาน";
+        document.getElementById("sfId").value = s.id;
+        document.getElementById("sfDate").value = s.date;
+        document.getElementById("sfTime").value = s.time || "";
+        document.getElementById("sfTitle").value = s.title || "";
+        document.getElementById("sfStatus").value = s.status || "open";
+        document.getElementById("sfLocation").value = s.location || "";
+        document.getElementById("sfNote").value = s.note || "";
+      } else {
+        document.getElementById("scheduleFormTitle").textContent = "เพิ่มตารางงานใหม่";
+        document.getElementById("sfId").value = "";
+        document.getElementById("sfDate").value = toISODate(new Date());
+        document.getElementById("sfTime").value = "09:00 - 18:00 น.";
+        document.getElementById("sfTitle").value = "";
+        document.getElementById("sfStatus").value = "open";
+        document.getElementById("sfLocation").value = appData.settings?.shrineName || "สำนักสักยันต์รัตนเกล้า";
+        document.getElementById("sfNote").value = "";
+      }
+      new bootstrap.Modal(document.getElementById("scheduleFormModal")).show();
+    }
+
+    async function saveScheduleForm(e) {
+      e.preventDefault();
+      const item = {
+        id: document.getElementById("sfId").value,
+        date: document.getElementById("sfDate").value,
+        time: document.getElementById("sfTime").value.trim(),
+        title: document.getElementById("sfTitle").value.trim(),
+        status: document.getElementById("sfStatus").value,
+        location: document.getElementById("sfLocation").value.trim(),
+        note: document.getElementById("sfNote").value.trim()
+      };
+
+      toggleLoader(true);
+      try {
+        const res = await apiPost({ action: "saveSchedule", auth: adminAuth, item });
+        if (res.status === "success") {
+          appData = res.data;
+          bootstrap.Modal.getInstance(document.getElementById("scheduleFormModal")).hide();
+          renderEverything();
+          Swal.fire({ icon: "success", title: "บันทึกตารางงานเรียบร้อย", timer: 1400, showConfirmButton: false, background: "#121216", color: "#fff" });
+        } else {
+          Swal.fire({ icon: "error", title: "บันทึกไม่สำเร็จ", text: res.message, background: "#121216", color: "#fff" });
+        }
+      } finally {
+        toggleLoader(false);
+      }
+    }
+
+    async function deleteSchedule(id) {
+      const confirm = await Swal.fire({
+        icon: "warning",
+        title: "ยืนยันการลบตารางงาน?",
+        showCancelButton: true,
+        confirmButtonColor: "#dc3545",
+        confirmButtonText: "ลบข้อมูล",
+        cancelButtonText: "ยกเลิก",
+        background: "#121216",
+        color: "#fff"
+      });
+      if (!confirm.isConfirmed) return;
+
+      toggleLoader(true);
+      try {
+        const res = await apiPost({ action: "deleteSchedule", auth: adminAuth, id });
+        if (res.status === "success") {
+          appData = res.data;
+          renderEverything();
+          Swal.fire({ icon: "success", title: "ลบเรียบร้อยแล้ว", timer: 1200, showConfirmButton: false, background: "#121216", color: "#fff" });
+        }
+      } finally {
+        toggleLoader(false);
+      }
+    }
+
+    // =========================================================================
+    // ADMIN SETTINGS
+    // =========================================================================
+    function populateSettingsForm() {
+      const s = appData.settings || {};
+      document.getElementById("setShrineName").value = s.shrineName || "";
+      document.getElementById("setAnnouncement").value = s.announcement || "";
+      document.getElementById("setSubtitle").value = s.subtitle || "";
+      document.getElementById("setBookingUrl").value = s.bookingUrl || DEFAULT_BOOKING_URL;
+      document.getElementById("setAddress").value = s.address || "";
+      document.getElementById("setHours").value = s.hours || "";
+      document.getElementById("setPhone").value = s.phone || "";
+      document.getElementById("setLine").value = s.line || "";
+      document.getElementById("setFacebook").value = s.facebook || "";
+      document.getElementById("setMapUrl").value = s.mapUrl || "";
+      document.getElementById("setRules").value = s.rules || "";
+      document.getElementById("setNewPassword").value = "";
+      document.getElementById("setConfirmPassword").value = "";
+    }
+
+    async function saveSettingsForm(e) {
+      e.preventDefault();
+      const newPass = document.getElementById("setNewPassword").value;
+      const confirmPass = document.getElementById("setConfirmPassword").value;
+      if (newPass && newPass !== confirmPass) {
+        Swal.fire({ icon: "warning", title: "รหัสผ่านใหม่ไม่ตรงกัน", background: "#121216", color: "#fff" });
+        return;
+      }
+
+      const settings = {
+        shrineName: document.getElementById("setShrineName").value.trim(),
+        announcement: document.getElementById("setAnnouncement").value.trim(),
+        subtitle: document.getElementById("setSubtitle").value.trim(),
+        bookingUrl: document.getElementById("setBookingUrl").value.trim(),
+        address: document.getElementById("setAddress").value.trim(),
+        hours: document.getElementById("setHours").value.trim(),
+        phone: document.getElementById("setPhone").value.trim(),
+        line: document.getElementById("setLine").value.trim(),
+        facebook: document.getElementById("setFacebook").value.trim(),
+        mapUrl: document.getElementById("setMapUrl").value.trim(),
+        rules: document.getElementById("setRules").value.trim()
+      };
+
+      toggleLoader(true);
+      try {
+        const res = await apiPost({ action: "saveSettings", auth: adminAuth, settings, newPassword: newPass });
+        if (res.status === "success") {
+          appData = res.data;
+          if (newPass) {
+            adminAuth.password = newPass;
+            sessionStorage.setItem("rk_admin_auth", JSON.stringify(adminAuth));
+          }
+          renderEverything();
+          Swal.fire({ icon: "success", title: "บันทึกการตั้งค่าเรียบร้อย", timer: 1400, showConfirmButton: false, background: "#121216", color: "#fff" });
+        } else {
+          Swal.fire({ icon: "error", title: "บันทึกไม่สำเร็จ", text: res.message, background: "#121216", color: "#fff" });
+        }
+      } finally {
+        toggleLoader(false);
+      }
+    }
+
+    // =========================================================================
+    // HELPERS
+    // =========================================================================
+    function toggleLoader(show) {
+      document.getElementById("globalLoader").classList.toggle("hidden", !show);
+    }
+
+    function toISODate(d) {
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    }
+
+    function formatThaiDate(isoStr) {
+      if (!isoStr || !isoStr.includes("-")) return isoStr || "-";
+      const [y, m, d] = isoStr.split("-").map(Number);
+      return `${d} ${THAI_MONTHS[m - 1]} ${y + 543}`;
+    }
+
+    function capitalize(s) {
+      return s.charAt(0).toUpperCase() + s.slice(1);
+    }
+
+    function escapeHtml(str) {
+      return String(str ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function escapeJs(str) {
+      return String(str ?? "").replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+    }
+
+    function compressImage(file, maxWidth, quality) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const img = new Image();
+          img.onload = () => {
+            let w = img.width;
+            let h = img.height;
+            if (w > maxWidth) {
+              h = Math.round((h * maxWidth) / w);
+              w = maxWidth;
+            }
+            const canvas = document.createElement("canvas");
+            canvas.width = w;
+            canvas.height = h;
+            canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+            resolve(canvas.toDataURL("image/jpeg", quality));
+          };
+          img.onerror = reject;
+          img.src = ev.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+  </script>
+</body>
+</html>
